@@ -1,7 +1,7 @@
 version: "3"
 services:
   wordpress:
-    image: wordpress:latest
+    image: wordpress:${WORDPRESS_VERSION}
     container_name: wordpress
     ports:
       - "${WORDPRESS_PORT}:80"
