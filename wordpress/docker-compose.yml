@@ -12,6 +12,8 @@ services:
       WORDPRESS_DB_NAME: "${MYSQL_DATABASE}"
       WORDPRESS_TABLE_PREFIX: "wp_"
       TZ: "${TZ}"
+    volumes:
+      - "${WORDPRESS_DATA_DIR}:/var/www/html"
     restart: always
     networks:
       - default
