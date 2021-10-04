@@ -14,6 +14,9 @@ services:
       TZ: "${TZ}"
     volumes:
       - "${WORDPRESS_DATA_DIR}:/var/www/html"
+      - type: bind
+        source: ./custom.ini
+        target: "/usr/local/etc/php/conf.d/custom.ini"
     restart: always
     networks:
       - default
