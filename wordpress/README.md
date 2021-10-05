@@ -15,7 +15,6 @@ if (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROT
 }
 ```
 
-参考：
-<https://github.com/docker-library/wordpress/pull/142>
-
-<https://hub.docker.com/_/wordpress>
+参考：  
+<https://github.com/docker-library/wordpress/pull/142>  
+<https://hub.docker.com/_/wordpress>  
