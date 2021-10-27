@@ -1,0 +1,11 @@
+[user]
+        name = zhanglikun
+        email = iuxt@qq.com
+[credential]
+        helper = store
+[core]
+        autocrlf = input
+[init]
+        defaultBranch = master
+[pull]
+        rebase = false
