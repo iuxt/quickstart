@@ -26,3 +26,5 @@ plugins_list="$plugins_list zsh-syntax-highlighting"
 
 # 替换plugins list on zshrc
 sed -i "s/^plugins=(.*)$/$plugins_list)/g" ~/.zshrc
+mkdir ~/.termux
+cp font.ttf ~/.termux/
