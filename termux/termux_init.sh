@@ -17,12 +17,12 @@ cp .p10k.zsh ~
 
 # zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-plugins_list="$plugins_list zsh-autosuggestions)"
+plugins_list="$plugins_list zsh-autosuggestions"
 
 
 # zsh-syntax-highlighting
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-plugins_list="$plugins_list zsh-syntax-highlighting)"
+plugins_list="$plugins_list zsh-syntax-highlighting"
 
 # 替换plugins list on zshrc
-sed -i "s/^plugins=(.*)$/$plugins_list/g" ~/.zshrc
+sed -i "s/^plugins=(.*)$/$plugins_list)/g" ~/.zshrc
