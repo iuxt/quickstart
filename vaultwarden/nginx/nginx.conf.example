@@ -1,9 +1,18 @@
 server {
   listen 80;
+  listen 443 ssl;
   server_name password.zahui.fan;
   
-  # Allow large attachments
   client_max_body_size 128M;
+
+  ssl_certificate       ssl/1_vipthink.cn_bundle.crt;
+  ssl_certificate_key   ssl/2_vipthink.cn.key;
+  ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+  ssl_ciphers ECDHE-RSA-AES128-GCM-SHA256:HIGH:!aNULL:!MD5:!RC4:!DHE;
+  ssl_prefer_server_ciphers on;
+  ssl_session_cache shared:SSL:10m;
+  ssl_session_timeout 10m;
+  error_page 497  https://$host$request_uri;
 
   location / {
     proxy_pass http://localhost:10001;
