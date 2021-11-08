@@ -14,6 +14,10 @@ server {
   ssl_session_timeout 10m;
   error_page 497  https://$host$request_uri;
 
+  if ( $scheme = http ){
+      rewrite ^(/.*)$ https://$host$1 permanent;
+  }
+
   location / {
     proxy_pass http://localhost:10001;
     proxy_set_header Host $host;
