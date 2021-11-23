@@ -25,7 +25,7 @@ services:
 # if you are using arm64 you should change image to mysql/mysql-server:< version >= 8.0 >
 #    image: mysql:${MYSQL_VERSION}
     image: mysql/mysql-server:${MYSQL_VERSION}
-    container_name: mysql
+    container_name: wordpress-mysql
     ports:
       - "${MYSQL_HOST_PORT}:3306"
     volumes:
