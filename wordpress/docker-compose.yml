@@ -15,8 +15,8 @@ services:
     volumes:
       - "${WORDPRESS_DATA_DIR}:/var/www/html"
       - type: bind
-        source: ./custom.ini
-        target: "/usr/local/etc/php/conf.d/custom.ini"
+        source: ./php_custom.ini
+        target: "/usr/local/etc/php/conf.d/php_custom.ini"
     restart: always
     networks:
       - default
