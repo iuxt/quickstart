@@ -1,3 +1,6 @@
+# 钉钉通知脚本
+> 需要添加钉钉机器人，安全选择加签模式
+
 ## before use
 
 1. install python
@@ -13,5 +16,5 @@ cp config.ini.example config.ini
 
 ## how to use
 ```bash
-python3 dingtalk.py 你想发的通知内容
+python3 dingtalk.py <content you want to send>
 ```
