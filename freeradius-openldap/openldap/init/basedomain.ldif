@@ -1,0 +1,19 @@
+dn: dc=nutstore,dc=com
+objectClass: top
+objectClass: dcObject
+objectclass: organization
+o: Server World
+dc: nutstore
+
+dn: cn=Manager,dc=nutstore,dc=com
+objectClass: organizationalRole
+cn: Manager
+description: Directory Manager
+
+dn: ou=People,dc=nutstore,dc=com
+objectClass: organizationalUnit
+ou: People
+
+dn: ou=Group,dc=nutstore,dc=com
+objectClass: organizationalUnit
+ou: Group

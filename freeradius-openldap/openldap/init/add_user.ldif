@@ -1,0 +1,12 @@
+dn: uid=zhanglikun,ou=People,dc=nutstore,dc=com
+ou: People
+uid: zhanglikun
+cn: zhanglikun
+sn: zhanglikun
+givenName: zhanglikun
+displayName: zhanglikun
+mail: zhanglikun@nutstore.net
+objectClass: person
+objectClass: organizationalPerson
+objectClass: inetOrgPerson
+userpassword: {SSHA}KIJZfwpXRlJwkKAnL/GnVH3IAQ/qzdrF
