@@ -1,4 +1,7 @@
-source ./.env
+#!/bin/bash
+set -euxo pipefail
+
+source .env
 docker run --name mysql \
        -e MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD} \
        -e MYSQL_DATABASE=${MYSQL_DATABASE} \
