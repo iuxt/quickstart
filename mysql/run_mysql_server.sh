@@ -15,4 +15,5 @@ docker run --name mysql \
        -p ${MYSQL_PORT}:3306 \
        -v ${MYSQL_DATA}:/var/lib/mysql \
        --network iuxt \
+       --restart always \
        -d mysql:${MYSQL_VERSION}
