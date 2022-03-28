@@ -6,4 +6,4 @@ docker run \
   -p 4500:4500/udp \
   -d --privileged \
   --restart=always \
-  iuxt/docker-ipsec-vpn-server:amd64-20210831
+  hwdsl2/ipsec-vpn-server
