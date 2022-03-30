@@ -11,4 +11,5 @@ docker run --name nginx \
   -p ${HTTP_PORT}:80 \
   -p ${HTTPS_PORT}:443 \
   --network iuxt \
+  --restart always \
   -d nginx:${NGINX_VERSION}
