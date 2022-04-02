@@ -15,7 +15,7 @@ now = time.strftime("%Y-%m-%d_%H%M%S", time.localtime())
 filename = "halo-" + now + ".tar.gz"
 
 def backup(src, dest):
-    command = "tar zc --exclude=logs " + src + " -f " + dest
+    command = "tar zc --exclude=logs --exclude=.git " + src + " -f " + dest
     os.system(command)
 
 
@@ -31,7 +31,7 @@ def upload_cos(bucket, filename):
     scheme = 'https'
 
     config = CosConfig(Region=region, SecretId=secret_id, SecretKey=secret_key, Token=token, Scheme=scheme)
-    client = CosS3Client(config, retry=3)
+    client = CosS3Client(config, retry=5)
 
     # # 本地路径 简单上传
     # response = client.put_object_from_local_file(
@@ -46,8 +46,8 @@ def upload_cos(bucket, filename):
         Bucket=bucket,
         LocalFilePath=filename,
         Key=filename,
-        PartSize=10,
-        MAXThread=2,
+        PartSize=1,
+        MAXThread=10,
         EnableMD5=False
     )
 
