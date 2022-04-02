@@ -1,5 +1,7 @@
 # -*- coding=utf-8
 from json import load
+
+from urllib3 import Retry
 from qcloud_cos import CosConfig
 from qcloud_cos import CosS3Client
 import sys
@@ -29,25 +31,25 @@ def upload_cos(bucket, filename):
     scheme = 'https'
 
     config = CosConfig(Region=region, SecretId=secret_id, SecretKey=secret_key, Token=token, Scheme=scheme)
-    client = CosS3Client(config)
+    client = CosS3Client(config, retry=3)
 
-    # 本地路径 简单上传
-    response = client.put_object_from_local_file(
+    # # 本地路径 简单上传
+    # response = client.put_object_from_local_file(
+    #     Bucket=bucket,
+    #     LocalFilePath=filename,
+    #     Key=filename,
+    # )
+    # print(response['ETag'])
+
+    # 高级上传接口
+    response = client.upload_file(
         Bucket=bucket,
         LocalFilePath=filename,
         Key=filename,
+        PartSize=10,
+        MAXThread=2,
+        EnableMD5=False
     )
-    print(response['ETag'])
-
-#    # 
-#    response = client.upload_file(
-#        Bucket=bucket,
-#        LocalFilePath=filename,
-#        Key=filename,
-#        PartSize=10,
-#        MAXThread=2,
-#        EnableMD5=False
-#    )
 
 def clean_tmp(filename):
     os.remove(filename)
