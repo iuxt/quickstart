@@ -10,11 +10,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 now = time.strftime("%Y-%m-%d_%H%M%S", time.localtime())
+filename = "halo-" + now + ".tar.gz"
 
-filename = "halo-" + now
-
-def backup(filename):
-    command = "tar zc --exclude=logs " + os.getenv("backup_dir") + " -f " + filename + ".tar.gz"
+def backup(src, dest):
+    command = "tar zc --exclude=logs " + src + " -f " + dest
     os.system(command)
 
 
@@ -45,7 +44,7 @@ def clean_tmp(filename):
 
 if __name__ == "__main__":
     try:
-        backup(filename)
-        upload_cos(os.getenv("bucket"), filename + ".tar.gz")
+        backup(os.getenv("backup_dir"), filename)
+        upload_cos(os.getenv("bucket"), filename)
     finally:
-        clean_tmp(filename + ".tar.gz")
+        clean_tmp(filename)
