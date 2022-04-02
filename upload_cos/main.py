@@ -39,6 +39,16 @@ def upload_cos(bucket, filename):
     )
     print(response['ETag'])
 
+#    # 
+#    response = client.upload_file(
+#        Bucket=bucket,
+#        LocalFilePath=filename,
+#        Key=filename,
+#        PartSize=10,
+#        MAXThread=2,
+#        EnableMD5=False
+#    )
+
 def clean_tmp(filename):
     os.remove(filename)
 
