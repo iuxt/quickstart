@@ -4,7 +4,6 @@ from qcloud_cos import CosConfig
 from qcloud_cos import CosS3Client
 import sys
 import logging
-import shutil
 import time
 import os
 from dotenv import load_dotenv
@@ -14,9 +13,9 @@ now = time.strftime("%Y-%m-%d_%H%M%S", time.localtime())
 
 filename = "halo-" + now
 
-
 def backup(filename):
-    shutil.make_archive(filename, 'zip', os.getenv("backup_dir"))
+    command = "tar zc --exclude=logs " + os.getenv("backup_dir") + " -f " + filename + ".tar.gz"
+    os.system(command)
 
 
 def upload_cos(bucket, filename):
@@ -33,15 +32,11 @@ def upload_cos(bucket, filename):
     config = CosConfig(Region=region, SecretId=secret_id, SecretKey=secret_key, Token=token, Scheme=scheme)
     client = CosS3Client(config)
 
-    #### 高级上传接口（推荐）
-    # 根据文件大小自动选择简单上传或分块上传，分块上传具备断点续传功能。
-    response = client.upload_file(
+    # 本地路径 简单上传
+    response = client.put_object_from_local_file(
         Bucket=bucket,
         LocalFilePath=filename,
         Key=filename,
-        PartSize=1,
-        MAXThread=10,
-        EnableMD5=False
     )
     print(response['ETag'])
 
@@ -51,7 +46,6 @@ def clean_tmp(filename):
 if __name__ == "__main__":
     try:
         backup(filename)
-        upload_cos(os.getenv("bucket"), filename + ".zip")
-    except:
-        clean_tmp(filename + ".zip")
-    clean_tmp(filename + ".zip")
+        upload_cos(os.getenv("bucket"), filename + ".tar.gz")
+    finally:
+        clean_tmp(filename + ".tar.gz")
