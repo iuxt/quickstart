@@ -4,11 +4,11 @@ RUN apt update && \
     inetutils-ping \
     telnet \
     ncat \
-    apt clean all
+    && apt clean all
 
 RUN apt install -y python3 \
     mysql-client-core-8.0 \
-    redis-tools && \
-    apt clean all
+    redis-tools \
+    && apt clean all
 
 CMD ["python3", "-m", "http.server", "80"]
