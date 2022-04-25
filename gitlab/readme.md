@@ -1,1 +1,1 @@
-https://github.com/ulm0/gitlab
+https://github.com/beiyanpiki/gitlab-ce-arm64
