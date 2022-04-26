@@ -4,4 +4,4 @@ logs/
 redis/
 postgres/
 gitlab/
-
+conf/
