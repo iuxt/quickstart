@@ -8,7 +8,8 @@ docker run \
   --publish 2222:22 \
   --hostname gitlab.babudiu.com \
   --env GITLAB_OMNIBUS_CONFIG=" \
-    nginx['redirect_http_to_https'] = false; 
+    gitlab_rails['gitlab_shell_ssh_port'] = 2222
+    nginx['redirect_http_to_https'] = false 
     nginx['listen_https'] = nil" \
   --volume "$PWD"/conf:/etc/gitlab:z \
   --volume "$PWD"/logs:/var/log/gitlab:z \
