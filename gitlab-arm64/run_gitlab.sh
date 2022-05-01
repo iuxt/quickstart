@@ -9,7 +9,6 @@ docker run \
   --hostname gitlab.babudiu.com \
   --env GITLAB_OMNIBUS_CONFIG=" \
     gitlab_rails['gitlab_shell_ssh_port'] = 2222
-    gitlab_rails['internal_api_url'] = 'https://gitlab.babudiu.com'
     external_url 'https://gitlab.babudiu.com'
     nginx['listen_port'] = 80
     nginx['listen_https'] = false
