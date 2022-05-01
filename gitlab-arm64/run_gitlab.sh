@@ -9,7 +9,10 @@ docker run \
   --hostname gitlab.babudiu.com \
   --env GITLAB_OMNIBUS_CONFIG=" \
     gitlab_rails['gitlab_shell_ssh_port'] = 2222
-    nginx['redirect_http_to_https'] = false 
+    gitlab_rails['internal_api_url'] = 'https://gitlab.babudiu.com'
+    external_url 'https://gitlab.babudiu.com'
+    nginx['listen_port'] = 80
+    nginx['listen_https'] = false
     " \
   --volume "$PWD"/conf:/etc/gitlab:z \
   --volume "$PWD"/logs:/var/log/gitlab:z \
