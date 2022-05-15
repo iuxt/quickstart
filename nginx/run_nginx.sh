@@ -19,4 +19,5 @@ docker run --name nginx \
   --add-host=host.docker.internal:host-gateway \
   --network iuxt \
   --restart always \
+  --log-opt max-size=10m \
   -d nginx:"${NGINX_VERSION}"
