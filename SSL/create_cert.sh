@@ -57,6 +57,6 @@ emailAddress=${emailAddress:-demo@example.com}
 
 mkdir -p "${CN}"
 
-[ ! -f "${CN}/${CN}.key" ] && openssl req -utf8 -nodes -newkey rsa:2048 -keyout "${CN}/${CN}.key" -new -days 36500 -out "${CN}/${CN}.csr" -subj "/C=${C}/ST=${ST}/L=${L}/O=${O}/OU=${OU}/CN=${CN}/emailAddress=${emailAddress}"
-[ ! -f "${CN}/${CN}.crt" ] && openssl ca -utf8 -batch -days 36500 -in "${CN}/${CN}.csr" -out "${CN}/${CN}.crt"
+[ ! -f "${CN}/${CN}.key" ] && openssl req -utf8 -nodes -newkey rsa:2048 -keyout "${CN}/${CN}.key" -new -out "${CN}/${CN}.csr" -subj "/C=${C}/ST=${ST}/L=${L}/O=${O}/OU=${OU}/CN=${CN}/emailAddress=${emailAddress}"
+[ ! -f "${CN}/${CN}.crt" ] && openssl ca -utf8 -batch -days 36500 -in "${CN}/${CN}.csr" -out "${CN}/${CN}.crt" -extfile ./cert.ext
 [ ! -f "${CN}/${CN}.p12" ] && openssl pkcs12 -export -CApath ./demoCA/ -inkey "${CN}/${CN}.key" -in "${CN}/${CN}.crt" -certfile "./demoCA/cacert.pem" -passout pass: -out "${CN}/${CN}.p12"

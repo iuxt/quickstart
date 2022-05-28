@@ -1,0 +1,9 @@
+keyUsage = nonRepudiation, digitalSignature, keyEncipherment
+extendedKeyUsage = serverAuth, clientAuth
+subjectAltName=@SubjectAlternativeName
+
+[ SubjectAlternativeName ]
+DNS.1=babudiu.com
+DNS.2=*.babudiu.com
+IP.1=192.168.1.1
+IP.2=192.168.1.2
