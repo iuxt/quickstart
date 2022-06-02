@@ -3,7 +3,7 @@ extendedKeyUsage = serverAuth, clientAuth
 subjectAltName=@SubjectAlternativeName
 
 [ SubjectAlternativeName ]
-DNS.1=babudiu.com
-DNS.2=*.babudiu.com
-IP.1=192.168.1.1
-IP.2=192.168.1.2
+DNS.1=lo.com
+DNS.2=*.lo.com
+IP.1=10.0.0.7
+IP.2=10.0.0.20
