@@ -15,9 +15,13 @@ CN=张理坤
 # 邮箱地址
 emailAddress=iuxt@qq.com
 
-mkdir -p ./demoCA/{private,newcerts}
-touch ./demoCA/index.txt
-[ ! -f ./demoCA/seria ] && echo 01 > ./demoCA/serial
-[ ! -f ./demoCA/crlnumber ] && echo 01 > ./demoCA/crlnumber
-[ ! -f ./demoCA/cacert.pem ] && openssl req -utf8 -new -x509 -days 36500 -newkey rsa:2048 -nodes -keyout ./demoCA/private/cakey.pem -out ./demoCA/cacert.pem -subj "/C=${C}/ST=${ST}/L=${L}/O=${O}/OU=${OU}/CN=${CN}/emailAddress=${emailAddress}"
-[ ! -f ./demoCA/private/ca.crl ] && openssl ca -crldays 36500 -gencrl -out "./demoCA/private/ca.crl"
+# openssl 配置文件位置：ubuntu: /usr/lib/ssl/openssl.cnf    centos: /etc/pki/tls/openssl.cnf
+# 证书的基础路径： centos 默认位置/etc/pki/CA， ubuntu默认为./demoCA
+basedir=/etc/pki/CA
+
+mkdir -p ${basedir}/{private,newcerts}
+touch ${basedir}/index.txt
+[ ! -f ${basedir}/seria ] && echo 01 > ${basedir}/serial
+[ ! -f ${basedir}/crlnumber ] && echo 01 > ${basedir}/crlnumber
+[ ! -f ${basedir}/cacert.pem ] && openssl req -utf8 -new -x509 -days 36500 -newkey rsa:2048 -nodes -keyout ${basedir}/private/cakey.pem -out ${basedir}/cacert.pem -subj "/C=${C}/ST=${ST}/L=${L}/O=${O}/OU=${OU}/CN=${CN}/emailAddress=${emailAddress}"
+[ ! -f ${basedir}/private/ca.crl ] && openssl ca -crldays 36500 -gencrl -out "${basedir}/private/ca.crl"

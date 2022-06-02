@@ -16,6 +16,7 @@
 
 ```bash
 ./create_cert.sh --ou 研发部 --cn 张理坤 --email iuxt@qq.com
+# 签服务器证书， cn这里写域名， 可以支持通配符
 ```
 
 吊销证书:
