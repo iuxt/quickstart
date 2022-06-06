@@ -55,7 +55,7 @@ CN=${CN:-demo}
 # 邮箱地址
 emailAddress=${emailAddress:-demo@example.com}
 
-basedir=./demoCA
+basedir=/etc/pki/CA
 
 mkdir -p "${CN}"
 
