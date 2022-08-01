@@ -17,7 +17,7 @@ emailAddress=iuxt@qq.com
 
 # openssl 配置文件位置：ubuntu: /usr/lib/ssl/openssl.cnf    centos: /etc/pki/tls/openssl.cnf
 # 证书的基础路径： centos 默认位置/etc/pki/CA， ubuntu默认为./demoCA
-basedir=/etc/pki/CA
+basedir=./demoCA
 
 mkdir -p ${basedir}/{private,newcerts}
 touch ${basedir}/index.txt

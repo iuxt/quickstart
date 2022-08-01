@@ -29,4 +29,4 @@
 
 需要将cert.ext里面的DNS内容换成你的域名, 将IP换成服务器的IP
 
-自签证书需要把ca.crt导入到操作系统的受信任根证书颁发机构里面.
+windows客户端需要把cacert.pem重命名为cacert.crt，双击导入到受信任的根证书颁发机构里面.

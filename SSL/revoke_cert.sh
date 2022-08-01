@@ -1,6 +1,6 @@
 #!/bin/bash -e
 
-basedir=/etc/pki/CA
+basedir=./demoCA
 
 # 吊销一个签证过的证书
 openssl ca -revoke "${1}/${1}.crt"
