@@ -3,12 +3,14 @@ set -euo pipefail
 
 source .env
 
+# Docker Network
 if [ "$(docker network ls | grep -c iuxt)" -eq 0 ]; then
   docker network create iuxt
 else
   echo "docker network iuxt exists skip"
 fi
 
+# FRP Config
 if [ "${FRP_ENABLE}" == "true" ]; then
   frp_command="-p ${FRP_PORT}:${FRP_PORT} \
 	       -v "$(pwd)"/conf/stream.d/frps.conf:/etc/nginx/stream.d/frps.conf \
@@ -16,6 +18,7 @@ if [ "${FRP_ENABLE}" == "true" ]; then
 else
   frp_command=""
 fi
+
 
 docker run --name nginx \
   -v "$(pwd)"/www:/usr/share/nginx/html:ro \
