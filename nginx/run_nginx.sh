@@ -10,25 +10,16 @@ else
   echo "docker network iuxt exists skip"
 fi
 
-# FRP Config
-if [ "${FRP_ENABLE}" == "true" ]; then
-  frp_command="-p ${FRP_PORT}:${FRP_PORT} \
-	       -v "$(pwd)"/conf/stream.d/frps.conf:/etc/nginx/stream.d/frps.conf \
-	      "
-else
-  frp_command=""
-fi
-
 
 docker run --name nginx \
   -v "$(pwd)"/www:/usr/share/nginx/html:ro \
   -v "$(pwd)"/conf/nginx.conf:/etc/nginx/nginx.conf \
   -v "$(pwd)"/conf/conf.d:/etc/nginx/conf.d \
+  -v "$(pwd)"/conf/stream.d:/etc/nginx/stream.d \
   -v "$(pwd)"/conf/ssl:/etc/nginx/ssl \
   -v "$(pwd)"/src:/src \
   -p "${HTTP_PORT}":80 \
   -p "${HTTPS_PORT}":443 \
-  ${frp_command} \
   --add-host=host.docker.internal:host-gateway \
   --network iuxt \
   --restart always \
