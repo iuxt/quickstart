@@ -19,6 +19,7 @@ docker run --name nginx \
   -v "$(pwd)"/www:/usr/share/nginx/html:ro \
   -v "$(pwd)"/conf/nginx.conf:/etc/nginx/nginx.conf \
   -v "$(pwd)"/conf/conf.d:/etc/nginx/conf.d \
+  -v "$(pwd)"/conf/stream.d:/etc/nginx/stream.d \
   -v "$(pwd)"/conf/ssl:/etc/nginx/ssl \
   -v "$(pwd)"/src:/src \
   -p "${HTTP_PORT}":80 \
