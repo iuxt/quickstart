@@ -7,4 +7,4 @@ else
   echo "docker network iuxt exists skip"
 fi
 
-docker run -it --rm --network iuxt iuxt/ubuntu bash
+docker run -it --rm --network iuxt registry.cn-hangzhou.aliyuncs.com/iuxt/admin_client:v1 bash

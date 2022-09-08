@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: client
+  name: client
+spec:
+  containers:
+  - image: registry.cn-hangzhou.aliyuncs.com/iuxt/admin_client:v1
+    name: client
+    command:
+    - "python3"
+    - "-m"
+    - "http.server"
+    - "80"
