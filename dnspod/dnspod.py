@@ -1,6 +1,14 @@
 import requests
 import json
 
+
+id = "345512"
+key = "example_key"
+domain = "babudiu.com"
+sub_domain = "t-box"
+value = "1.1.1.1"
+
+
 class DnsPodApi:
     def __init__(self, token, domain) -> None:
         self.token = token
@@ -16,7 +24,10 @@ class DnsPodApi:
             "domain": self.domain
         }
         r = requests.post("https://dnsapi.cn/Record.List", data=data)
-        return r.json()["records"]
+        if r.status_code == 200:
+            return r.json()["records"]
+        else:
+            print(r.json())
 
     def create_record(self, sub_domain, value):
         """
@@ -34,10 +45,10 @@ class DnsPodApi:
         r = requests.post("https://dnsapi.cn/Record.Create", data=data)
         print(r.json())
 
-    def get_subdomain_id(self, sub_domain):
+    def get_subdomain_info(self, sub_domain):
         for i in self.get_record_info():
             if i["name"] == sub_domain:
-                return i["id"]
+                return [i["id"], i["value"]]
         return None
     
     def modify_record(self, sub_domain, record_id, value):
@@ -55,12 +66,14 @@ class DnsPodApi:
         print(r.json())
 
 
-a = DnsPodApi(token="345512,xxxxx", domain="babudiu.com")
+a = DnsPodApi(id + "," + key, domain)
 
-# print(a.get_subdomain_id("t-box"))
-# a.create_record("aaa", "1.1.2.2")
-
-if a.get_subdomain_id("t-box"):
-    a.modify_record("t-box", a.get_subdomain_id("t-box"), "8.8.8.8")
+if a.get_subdomain_info(sub_domain):
+    if a.get_subdomain_info(sub_domain)[1] == value:
+        print("记录已存在，值也是我需要的，不做修改")
+    else:
+        a.modify_record(sub_domain, a.get_subdomain_info(sub_domain)[0], value)
+        print("修改现有的解析")
 else:
-    a.create_record("t-box", "9.9.9.9")
+    a.create_record(sub_domain, value)
+    print("增加新的解析")
