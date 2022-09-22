@@ -2,12 +2,6 @@ import requests
 import json
 
 
-id = "345512"
-key = "example_key"
-domain = "babudiu.com"
-sub_domain = "t-box"
-value = "1.1.1.1"
-
 
 class DnsPodApi:
     def __init__(self, token, domain) -> None:
@@ -38,7 +32,7 @@ class DnsPodApi:
             "format": "json",
             "domain": self.domain,
             "sub_domain": sub_domain,
-            "record_type": "A",
+            "record_type": "AAAA",
             "record_line": "默认",
             "value": value
         }
@@ -58,7 +52,7 @@ class DnsPodApi:
             "domain": self.domain,
             "sub_domain": sub_domain,
             "record_id": record_id,
-            "record_type": "A",
+            "record_type": "AAAA",
             "record_line": "默认",
             "value": value
         }
@@ -66,14 +60,21 @@ class DnsPodApi:
         print(r.json())
 
 
-a = DnsPodApi(id + "," + key, domain)
-
-if a.get_subdomain_info(sub_domain):
-    if a.get_subdomain_info(sub_domain)[1] == value:
-        print("记录已存在，值也是我需要的，不做修改")
+if __name__ == "__main__":
+    id = "345512"
+    key = "example_key"
+    domain = "babudiu.com"
+    sub_domain = "t-box"
+    value = "1.1.1.1"
+    
+    a = DnsPodApi(id + "," + key, domain)
+    
+    if a.get_subdomain_info(sub_domain):
+        if a.get_subdomain_info(sub_domain)[1] == value:
+            print("记录已存在，值也是我需要的，不做修改")
+        else:
+            a.modify_record(sub_domain, a.get_subdomain_info(sub_domain)[0], value)
+            print("修改现有的解析")
     else:
-        a.modify_record(sub_domain, a.get_subdomain_info(sub_domain)[0], value)
-        print("修改现有的解析")
-else:
-    a.create_record(sub_domain, value)
-    print("增加新的解析")
+        a.create_record(sub_domain, value)
+        print("增加新的解析")
