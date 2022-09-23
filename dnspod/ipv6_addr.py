@@ -6,3 +6,5 @@ def get_ipv6_addr():
     print("ipv6_addr:", ipv6_addr)
     return ipv6_addr
 
+if __name__ == "__main__":
+    get_ipv6_addr()
