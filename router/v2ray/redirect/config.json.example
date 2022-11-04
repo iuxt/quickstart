@@ -1,0 +1,209 @@
+{
+  "inbounds": [
+    {
+      "tag":"transparent",
+      "port": 12345,
+      "protocol": "dokodemo-door",
+      "settings": {
+        "network": "tcp,udp",
+        "followRedirect": true
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": [
+          "http",
+          "tls"
+        ]
+      },
+      "streamSettings": {
+        "sockopt": {
+          "tproxy": "redirect",
+          "mark":255
+        }
+      }
+    },
+    {
+      "port": 1080, 
+      "protocol": "socks", // 入口协议为 SOCKS 5
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls"]
+      },
+      "settings": {
+        "auth": "noauth"
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "proxy",
+      "protocol": "vmess", // 代理服务器
+      "settings": {
+        "vnext": [
+          {
+            "address": "你的服务器地址",
+            "port": 443,
+            "users": [
+              {
+                "id": "xxxxxx",
+                "alterId": 0,
+                "security": "auto"
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": false
+        },
+        "sockopt": {
+          "mark": 255
+        },
+        "wsSettings": {
+          "path": "/v2"
+        }
+      },
+      "mux": {
+        "enabled": true,
+        "concurrency": 8
+      }
+    },
+    {
+      "tag": "direct",
+      "protocol": "freedom",
+      "settings": {
+        "domainStrategy": "UseIP"
+      },
+      "streamSettings": {
+        "sockopt": {
+          "mark": 255
+        }
+      }      
+    },
+    {
+      "tag": "block",
+      "protocol": "blackhole",
+      "settings": {
+        "response": {
+          "type": "http"
+        }
+      }
+    },
+    {
+      "tag": "dns-out",
+      "protocol": "dns",
+      "streamSettings": {
+        "sockopt": {
+          "mark": 255
+        }
+      }  
+    }
+  ],
+  "dns": {
+    "servers": [
+      {
+        "address": "223.5.5.5", //中国大陆域名使用阿里的 DNS
+        "port": 53,
+        "domains": [
+          "geosite:cn",
+          "ntp.org",   // NTP 服务器
+          "xxxx.com" // 此处改为你 VPS 的域名
+        ]
+      },
+      {
+        "address": "114.114.114.114", //中国大陆域名使用 114 的 DNS (备用)
+        "port": 53,
+        "domains": [
+          "geosite:cn",
+          "ntp.org",   // NTP 服务器
+          "xxxx.com" // 此处改为你 VPS 的域名
+        ]
+      },
+      {
+        "address": "8.8.8.8", //非中国大陆域名使用 Google 的 DNS
+        "port": 53,
+        "domains": [
+          "geosite:geolocation-!cn"
+        ]
+      },
+      {
+        "address": "1.1.1.1", //非中国大陆域名使用 Cloudflare 的 DNS
+        "port": 53,
+        "domains": [
+          "geosite:geolocation-!cn"
+        ]
+      }
+    ]
+  },
+  "routing": {
+    "domainStrategy": "IPOnDemand",
+    "rules": [
+      { // 劫持 53 端口 UDP 流量，使用 V2Ray 的 DNS
+        "type": "field",
+        "inboundTag": [
+          "transparent"
+        ],
+        "port": 53,
+        "network": "udp",
+        "outboundTag": "dns-out" 
+      },    
+      { // 直连 123 端口 UDP 流量（NTP 协议）
+        "type": "field",
+        "inboundTag": [
+          "transparent"
+        ],
+        "port": 123,
+        "network": "udp",
+        "outboundTag": "direct" 
+      },    
+      {
+        "type": "field", 
+        "ip": [ 
+          // 设置 DNS 配置中的国内 DNS 服务器地址直连，以达到 DNS 分流目的
+          "223.5.5.5",
+          "114.114.114.114"
+        ],
+        "outboundTag": "direct"
+      },
+      {
+        "type": "field",
+        "ip": [ 
+          // 设置 DNS 配置中的国外 DNS 服务器地址走代理，以达到 DNS 分流目的
+          "8.8.8.8",
+          "1.1.1.1"
+        ],
+        "outboundTag": "proxy" // 改为你自己代理的出站 tag
+      },
+      { // 广告拦截
+        "type": "field", 
+        "domain": [
+          "geosite:category-ads-all"
+        ],
+        "outboundTag": "block"
+      },
+      { // BT 流量直连
+        "type": "field",
+        "protocol":["bittorrent"], 
+        "outboundTag": "direct"
+      },
+      { // 直连中国大陆主流网站 ip 和 保留 ip
+        "type": "field", 
+        "ip": [
+          "geoip:private",
+          "geoip:cn"
+        ],
+        "outboundTag": "direct"
+      },
+      { // 直连中国大陆主流网站域名
+        "type": "field", 
+        "domain": [
+          "geosite:cn"
+        ],
+        "outboundTag": "direct"
+      }
+    ]
+  }
+}
