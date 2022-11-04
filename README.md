@@ -11,3 +11,8 @@ curl -fsSL get.docker.com | bash
 ```
 
 项目配置文件统一叫.env，第一次使用需要从.env.example复制，并做修改
+
+## Sponsor
+The project is develop by [JetBrains Ide](https://www.jetbrains.com/?from=puck)
+
+[![](https://www.jetbrains.com/company/brand/img/logo1.svg)](https://www.jetbrains.com/?from=puck)

@@ -24,3 +24,9 @@
 ```bash
 python3 dingtalk.py <content you want to send>
 ```
+
+## crontab
+
+```bash
+0 */6 * * * cd /data/code/quickstart/dingtalk_notify/ && ./send_ipv6.sh >> /data/logs/dingtalk_notify.log 2>&1
+```
