@@ -3,10 +3,17 @@ set -euo pipefail
 
 source .env
 
+if [ "$(docker network ls | grep -c iuxt)" -eq 0 ]; then
+  docker network create iuxt
+else
+  echo "docker network iuxt exists skip"
+fi
+
 docker run --name mysql \
        -e MYSQL_ROOT_PASSWORD="${MYSQL_ROOT_PASSWORD}" \
        -e MYSQL_DATABASE="${MYSQL_DATABASE}" \
        -v "${MYSQL_DATA}":/var/lib/mysql \
-       --network host \
+       --network iuxt \
+       -p 13306:3306 \
        --restart always \
        -d mysql:"${MYSQL_VERSION}"
