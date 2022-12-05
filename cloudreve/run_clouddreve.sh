@@ -19,4 +19,5 @@ docker run -d \
     --mount type=bind,source=$(pwd)/data/cloudreve.db,target=/cloudreve/cloudreve.db \
     -v $(pwd)/data/uploads:/cloudreve/uploads \
     -v $(pwd)/data/avatar:/cloudreve/avatar \
+    --restart=always \
     cloudreve/cloudreve:latest
