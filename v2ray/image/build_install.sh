@@ -9,5 +9,5 @@ if [ $(uname -m) == "x86_64" ]; then
 elif [ $(uname -m) == "aarch64" ]; then  
     echo "arm"
     wget https://github.com/v2fly/v2ray-core/releases/download/v5.2.0/v2ray-linux-arm64-v8a.zip
-    unzip v2ray-linux-64.zip && rm -f v2ray-linux-64.zip
+    unzip 2ray-linux-arm64-v8a.zip && rm -f 2ray-linux-arm64-v8a.zip
 fi
