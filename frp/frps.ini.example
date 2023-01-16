@@ -1,12 +1,12 @@
 [common]
- bind_addr = 0.0.0.0
- bind_port = 7000
- kcp_bind_port = 7000
- dashboard_addr = 0.0.0.0
- dashboard_port = 7100
- dashboard_user = admin
- dashboard_pwd = 123456
- log_level = info
- disable_log_color = false
- token = 123456
- tcp_mux = true
+bind_addr = 0.0.0.0
+bind_port = 7000
+kcp_bind_port = 7000
+dashboard_addr = 0.0.0.0
+dashboard_port = 7100
+dashboard_user = admin
+dashboard_pwd = 123456
+log_level = info
+disable_log_color = false
+token = 123456
+tcp_mux = true
