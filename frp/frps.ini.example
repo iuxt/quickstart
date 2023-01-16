@@ -1,7 +1,8 @@
 [common]
+tls_enable = true
 bind_addr = 0.0.0.0
 bind_port = 7000
-kcp_bind_port = 7000
+# kcp_bind_port = 7000
 dashboard_addr = 0.0.0.0
 dashboard_port = 7100
 dashboard_user = admin
