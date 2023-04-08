@@ -7,4 +7,4 @@ docker run --name frps \
   --restart always \
   --log-opt max-size=1G \
   -v /etc/localtime:/etc/localtime -v /etc/timezone:/etc/timezone \
-  -d snowdreamtech/frps:latest
+  -d snowdreamtech/frps:0.48.0
