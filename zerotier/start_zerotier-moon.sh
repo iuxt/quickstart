@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-public_ip=$(curl ip.sb)
+public_ip=$(curl -s ip.sb)
 
 docker run --name zerotier-moon \
     -d -p 9993:9993 -p 9993:9993/udp \
