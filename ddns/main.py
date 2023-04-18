@@ -46,8 +46,8 @@ def dnspod_check():
     
 
 def namesilo_check():
-    a = namesilo.NamesiloApi(domain=domain)
-    record_value = namesilo.get_record(sub_domain)
+    a = namesilo.NamesiloApi(domain=domain, key=key)
+    record_value = a.get_record(sub_domain).get("value")
     print(record_value)
     if record_value == real_value:
         print("不用更新")
