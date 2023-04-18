@@ -1,10 +1,25 @@
-import dnspod
+import cloud_api.dnspod as dnspod
+import cloud_api.namesilo as namesilo
 import ipv6_addr
-import config
 import logging
+import configparser
 
 #默认的warning级别，只输出warning以上的
 #使用basicConfig()来指定日志级别和相关信息
+
+config = configparser.ConfigParser()    #类中一个方法 #实例化一个对象
+config.read("config.ini")
+
+if config["main"]["cloud_api"] == "dnspod":
+    id = config["dnspod"]["id"]
+    key = config["dnspod"]["key"]
+    domain = config["dnspod"]["domain"]
+    sub_domain = config["dnspod"]["sub_domain"]
+elif config["main"]["cloud_api"] == "namesilo":
+    key = config["namesilo"]["key"]
+    domain = config["namesilo"]["domain"]
+    sub_domain = config["namesilo"]["sub_domain"]
+
 
 logging.basicConfig(level=logging.DEBUG #设置日志输出格式
                     ,filename="log.log" #log日志输出的文件位置和文件名
@@ -14,22 +29,31 @@ logging.basicConfig(level=logging.DEBUG #设置日志输出格式
                     ,encoding="utf-8"
                     )
 
-id = config.id
-key = config.key
-domain = config.domain
-sub_domain = config.sub_domain
-value = ipv6_addr.getIPv6Address()
+real_value = ipv6_addr.getIPv6Address()
 
-a = dnspod.DnsPodApi(id + "," + key, domain)
+def dnspod_check():
+    a = dnspod.DnsPodApi(id + "," + key, domain)
 
-if a.get_subdomain_info(sub_domain):
-    if a.get_subdomain_info(sub_domain)[1] == value:
-        logging.info("记录已存在，值也是我需要的，不做修改")
+    if a.get_subdomain_info(sub_domain):
+        if a.get_subdomain_info(sub_domain)[1] == real_value:
+            logging.info("记录已存在，值也是我需要的，不做修改")
+        else:
+            a.modify_record(sub_domain, a.get_subdomain_info(sub_domain)[0], real_value)
+            logging.info("修改现有的解析")
     else:
-        a.modify_record(sub_domain, a.get_subdomain_info(sub_domain)[0], value)
-        logging.info("修改现有的解析")
-else:
-    a.create_record(sub_domain, value)
-    logging.info("增加新的解析")
+        a.create_record(sub_domain, real_value)
+        logging.info("增加新的解析")
     
 
+def namesilo_check():
+    a = namesilo.NamesiloApi(domain=domain)
+    record_value = namesilo.get_record(sub_domain)
+    print(record_value)
+    if record_value == real_value:
+        print("不用更新")
+    else:
+        print("调用更新方法")
+    
+
+if __name__ == "__main__":
+    namesilo_check()
