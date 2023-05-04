@@ -14,6 +14,5 @@ docker run --name mysql \
        -e MYSQL_DATABASE="${MYSQL_DATABASE}" \
        -v "${MYSQL_DATA}":/var/lib/mysql \
        --network iuxt \
-       -p 3306:3306 \
        --restart always \
        -d mysql:"${MYSQL_VERSION}"
