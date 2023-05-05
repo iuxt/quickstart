@@ -1,20 +1,7 @@
 import cloud_api.dnspod as dnspod
 import cloud_api.namesilo as namesilo
 import ipv6_addr
-import configparser
-
-config = configparser.ConfigParser()    #类中一个方法 #实例化一个对象
-config.read("config.ini")
-
-if config["main"]["cloud_api"] == "dnspod":
-    id = config["dnspod"]["id"]
-    key = config["dnspod"]["key"]
-    domain = config["dnspod"]["domain"]
-    sub_domain = config["dnspod"]["sub_domain"]
-elif config["main"]["cloud_api"] == "namesilo":
-    key = config["namesilo"]["key"]
-    domain = config["namesilo"]["domain"]
-    sub_domain = config["namesilo"]["sub_domain"]
+import config
 
 
 real_value = ipv6_addr.getIPv6Address()
@@ -43,5 +30,18 @@ def namesilo_check():
         print("调用更新方法")
     
 
+if config.get_config("main", "cloud_api") == "dnspod":
+    id = config.get_config("dnspod", "id")
+    key = config.get_config("dnspod", "key")
+    domain = config.get_config("dnspod", "domain")
+    sub_domain = config.get_config("dnspod", "sub_domain")
+    check_func = dnspod_check
+elif config.get_config("main", "cloud_api") == "namesilo":
+    key = config.get_config("namesilo", "key")
+    domain = config.get_config("namesilo", "domain")
+    sub_domain = config.get_config("namesilo", "sub_domain")
+    check_func = namesilo_check
+
+
 if __name__ == "__main__":
-    namesilo_check()
+    check_func()
