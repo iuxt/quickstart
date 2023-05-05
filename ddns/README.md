@@ -26,7 +26,7 @@ venv\Scripts\activate.bat    # Windows 环境
 crontab 示例：
 
 ```bash
-*/5 * * * * cd /data/code/quickstart/ddns/ && ./venv/bin/python ./main.py >> /data/logs/cron.log 2>&1
+*/10 * * * * cd /data/code/quickstart/ddns/ && ./venv/bin/python ./main.py >> /data/logs/cron.log 2>&1
 ```
 
 ## 使用Docker运行方式
