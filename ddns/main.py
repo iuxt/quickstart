@@ -22,12 +22,13 @@ def dnspod_check():
 
 def namesilo_check():
     a = namesilo.NamesiloApi(domain=domain, key=key)
-    record_value = a.get_record(sub_domain).get("value")
-    print(record_value)
-    if record_value == real_value:
+    data = a.get_record(sub_domain)
+    print(data)
+    if data.get("value") == real_value:
         print("不用更新")
     else:
         print("调用更新方法")
+        a.modify_record(record_id=data.get("record_id"), value=real_value)
     
 
 if config.get_config("main", "cloud_api") == "dnspod":
