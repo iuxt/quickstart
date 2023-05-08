@@ -1,3 +1,4 @@
 www/
 .env
 src/
+conf.d/
