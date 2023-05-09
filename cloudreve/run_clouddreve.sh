@@ -15,9 +15,12 @@ fi
 docker run -d \
     --name cloudreve \
     --network iuxt \
-    --mount type=bind,source=$(pwd)/data/conf.ini,target=/cloudreve/conf.ini \
-    --mount type=bind,source=$(pwd)/data/cloudreve.db,target=/cloudreve/cloudreve.db \
-    -v $(pwd)/data/uploads:/cloudreve/uploads \
-    -v $(pwd)/data/avatar:/cloudreve/avatar \
+    -e PUID=$UID \
+    -e PGID=$GID \
+    --mount type=bind,source=$PWD/data/conf.ini,target=/cloudreve/conf.ini \
+    --mount type=bind,source=$PWD/data/cloudreve.db,target=/cloudreve/cloudreve.db \
+    -v $PWD/data/uploads:/cloudreve/uploads \
+    -v $PWD/data/avatar:/cloudreve/avatar \
+    -v $PWD/aria2-downloads:/downloads \
     --restart=always \
     cloudreve/cloudreve:latest
