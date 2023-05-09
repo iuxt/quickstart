@@ -14,7 +14,7 @@ docker run -d \
     --restart unless-stopped \
     --log-opt max-size=1m \
     -e PUID=$UID \
-    -e PGID=$GID \
+    -e PGID=$(id -g) \
     -e UMASK_SET=022 \
     -e RPC_SECRET=com.012 \
     -e RPC_PORT=6800 \
