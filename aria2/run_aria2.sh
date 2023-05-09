@@ -1,6 +1,6 @@
 #!/bin/bash
 docker run -d \
-    --name aria2-pro \
+    --name aria2 \
     --restart unless-stopped \
     --log-opt max-size=1m \
     -e PUID=$UID \
