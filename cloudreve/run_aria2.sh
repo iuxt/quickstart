@@ -18,10 +18,7 @@ docker run -d \
     -e UMASK_SET=022 \
     -e RPC_SECRET=com.012 \
     -e RPC_PORT=6800 \
-    -p 6800:6800 \
     -e LISTEN_PORT=6888 \
-    -p 6888:6888 \
-    -p 6888:6888/udp \
     -v $PWD/aria2-config:/config \
     -v $PWD/aria2-downloads:/downloads \
     p3terx/aria2-pro
