@@ -1,15 +1,10 @@
 cluster.name: "es-cluster"
-network.host: 0.0.0.0
+node.name: es-node-3
+network.host: 172.16.0.13
+
+discovery.seed_hosts: ["172.16.0.11", "172.16.0.12"]
+cluster.initial_master_nodes: ["172.16.0.11", "172.16.0.12", "172.16.0.13"] # 法定master数量 / 2 + 1
 
 xpack.security.enabled: true
-
 http.cors.enabled: true
 http.cors.allow-origin: "*"
-
-node.name: es-node-3
-node.master: true
-path.data: /var/lib/elasticsearch
-path.logs: /var/log/elasticsearch
-network.host: 172.16.0.13
-discovery.zen.ping.unicast.hosts: ["172.16.0.11", "172.16.0.12"]
-discovery.zen.minimum_master_nodes: 2
