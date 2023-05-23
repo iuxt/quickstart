@@ -7,7 +7,7 @@ docker network create --subnet=172.16.0.0/24 elasticsearch-br0
 docker run -d --name elasticsearch1 \
     -e "ES_JAVA_OPTS=-Xms512m -Xmx512m" \
     -v "$(pwd)"/elasticsearch1.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro \
-    -v "$(pwd)"/data2:/usr/share/elasticsearch/data:rw \
+    -v "$(pwd)"/data1:/usr/share/elasticsearch/data:rw \
     -v "$(pwd)"/logs1:/usr/share/elasticsearch/logs:rw \
     --privileged --network elasticsearch-br0 \
     --ip 172.16.0.11 \
@@ -27,7 +27,7 @@ docker run -d --name elasticsearch2 \
 docker run -d --name elasticsearch3 \
     -e "ES_JAVA_OPTS=-Xms512m -Xmx512m" \
     -v "$(pwd)"/elasticsearch3.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro \
-    -v "$(pwd)"/data2:/usr/share/elasticsearch/data:rw \
+    -v "$(pwd)"/data3:/usr/share/elasticsearch/data:rw \
     -v "$(pwd)"/logs3:/usr/share/elasticsearch/logs:rw \
     --privileged --network elasticsearch-br0 \
     --ip 172.16.0.13 \
