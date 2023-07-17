@@ -21,7 +21,7 @@ do
         ;;
         c)
             echo "c $OPTARG"
-            ln -sf $(pwd)/$OPTARG ../conf.d/
+            cp $(pwd)/$OPTARG ../conf.d/
         ;;
         ?)                     #当有不认识的选项的时候arg为?
             help
