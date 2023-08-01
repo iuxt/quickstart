@@ -1,11 +1,6 @@
 #!/bin/bash
 
-# Docker Network
-if [ "$(docker network ls | grep -c iuxt)" -eq 0 ]; then
-  docker network create iuxt
-else
-  echo "docker network iuxt exists skip"
-fi
+../public/docker-network.sh
 
 
 docker run -d \
