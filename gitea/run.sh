@@ -2,13 +2,14 @@
 
 ../public/docker-network.sh
 
+useradd -m iuxt
 # https://docs.gitea.com/installation/install-with-docker
 
 docker run -d \
     --name gitea \
     --network iuxt \
-    -e USER_UID=$UID \
-    -e USER_GID=$(id -g) \
+    -e USER_UID=$(id -u iuxt) \
+    -e USER_GID=$(id -g iuxt) \
     --mount type=bind,source=/etc/timezone,target=/etc/timezone,readonly \
     --mount type=bind,source=/etc/localtime,target=/etc/localtime,readonly \
     -v $PWD/gitea-data:/data \
