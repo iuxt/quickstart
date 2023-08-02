@@ -9,3 +9,4 @@ docker run -d --name v2ray \
   --mount type=bind,source=$(pwd)/config.json,target=/v2ray/config.json \
   iuxt/v2ray
 
+cp -f ./v2ray-nginx.conf ../nginx/conf.d/v2ray.conf
