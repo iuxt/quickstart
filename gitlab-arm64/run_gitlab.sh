@@ -18,3 +18,5 @@ docker run \
   --volume "$PWD"/data:/var/opt/gitlab:z \
   --restart always \
   yrzr/gitlab-ce-arm64v8:latest
+
+cp -f ./gitlab-nginx.conf ../nginx/conf.d/gitlab.conf

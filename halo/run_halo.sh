@@ -8,3 +8,5 @@ docker run -it -d --name halo \
   --network iuxt \
   --restart always \
   halohub/halo:1.6.1
+
+cp -f ./halo-nginx.conf ../nginx/conf.d/halo.conf

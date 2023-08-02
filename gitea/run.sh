@@ -15,5 +15,5 @@ docker run -d \
     --restart=always \
     gitea/gitea:latest
 
-cp -f ./gitea-nginx.conf ../nginx/conf.d/
-cp -f ./gitea-nginx-stream.conf ../nginx/stream.d/
+cp -f ./gitea-nginx.conf ../nginx/conf.d/gitea.conf
+cp -f ./gitea-nginx-stream.conf ../nginx/stream.d/gitea.conf

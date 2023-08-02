@@ -15,3 +15,5 @@ docker run -d \
     -v $PWD/aria2-config:/config \
     -v $PWD/aria2-downloads:/downloads \
     p3terx/aria2-pro
+
+cp -f ./gitea-nginx.conf ../nginx/conf.d/gitea.conf

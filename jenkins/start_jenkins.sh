@@ -6,3 +6,5 @@ docker run -d \
     --name jenkins \
     --restart=on-failure \
     jenkins/jenkins:lts-jdk11
+
+cp -f ./jenkins-nginx.conf ../nginx/conf.d/jenkins.conf

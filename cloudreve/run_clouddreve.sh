@@ -19,3 +19,5 @@ docker run -d \
     -v $PWD/aria2-downloads:/downloads \
     --restart=always \
     cloudreve/cloudreve:latest
+
+cp -f ./cloudreve-nginx.conf ../nginx/conf.d/cloudreve.conf
