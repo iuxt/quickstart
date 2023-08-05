@@ -15,6 +15,8 @@ docker run --name nginx \
   -v "$(pwd)"/src:/src \
   -p "${HTTP_PORT}":80 \
   -p "${HTTPS_PORT}":443 \
+  -p 8000-8010:8000-8010 \
+  -p 22:22 \
   --add-host=host.docker.internal:host-gateway \
   --network iuxt \
   --restart always \
