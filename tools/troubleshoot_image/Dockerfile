@@ -11,4 +11,4 @@ RUN apt install -y python3 \
     redis-tools \
     && apt clean all
 
-CMD ["python3", "-m", "http.server", "80"]
+CMD ["sleep", "infinity"]

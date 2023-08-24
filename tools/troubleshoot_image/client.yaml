@@ -9,7 +9,6 @@ spec:
   - image: registry.cn-hangzhou.aliyuncs.com/iuxt/admin_client:v1
     name: client
     command:
-    - "python3"
-    - "-m"
-    - "http.server"
-    - "80"
+    - "sleep"
+    - "infinity"
+

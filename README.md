@@ -12,6 +12,10 @@ curl -fsSL get.docker.com | bash
 
 项目配置文件统一叫.env，第一次使用需要从.env.example复制，并做修改
 
+小工具都放到了tools里面
+
+public里面是本项目的公共脚本， 比如创建docker网络
+
 ## Sponsor
 The project is develop by [JetBrains Ide](https://www.jetbrains.com/?from=puck)
 
