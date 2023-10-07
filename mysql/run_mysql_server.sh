@@ -9,6 +9,7 @@ docker run --name mysql \
        -e MYSQL_ROOT_PASSWORD="${MYSQL_ROOT_PASSWORD}" \
        -e MYSQL_DATABASE="${MYSQL_DATABASE}" \
        -v "${MYSQL_DATA}":/var/lib/mysql \
+       -v "$(pwd)/mysql_temp":/mysql_temp \
        -p "${MYSQL_PORT}":3306 \
        -p "${MYSQLX_PORT}":33060 \
        --network iuxt \
