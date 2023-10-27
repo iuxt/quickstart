@@ -13,3 +13,8 @@ SSH_PORT = 22
 SSH_LISTEN_HOST = 22222
 
 然后将容器内的22222端口暴露出来,映射到主机的22端口即可.
+
+## 注意
+
+.env里面的内容只在第一次启动的时候有效, 如果不生效, 可以直接修改app.ini或者删除app.ini, 重新启动容器会自动生成app.ini
+app.ini 位置: quickstart/gitea/gitea-data/gitea/conf/app.ini
