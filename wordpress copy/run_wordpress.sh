@@ -13,8 +13,8 @@ docker run -d --name wordpress-mysql \
     -d mysql:"${MYSQL_VERSION}"
 
 docker run -d --name wordpress \
-  -v "$PWD"/data:/var/www/html \
-  --mount type=bind,source=$PWD/php_custom.ini,target=/usr/local/etc/php/conf.d/php_custom.ini \
+  -v "$PWD"/wordpress_data:/var/www/html \
+  --mount type=bind,source="$PWD/php_custom.ini",target=/usr/local/etc/php/conf.d/php_custom.ini \
   --env-file=.env \
   --network iuxt \
   --restart always \
