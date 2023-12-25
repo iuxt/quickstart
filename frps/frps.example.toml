@@ -1,7 +1,3 @@
-[common]
-tls_enable = true
-tcp_mux = true
-
 bindAddr = "0.0.0.0"
 bindPort = 7000
 kcpBindPort = 7000
