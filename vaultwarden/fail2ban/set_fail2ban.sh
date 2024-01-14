@@ -8,7 +8,7 @@ fi
 # vaultwarden
 cp -f filter.d/vaultwarden.conf /etc/fail2ban/filter.d/
 cp -f jail.d/vaultwarden.conf /etc/fail2ban/jail.d/
-logpath=$(pwd)/../vaultwarden_data/vaultwarden.log
+logpath=$(dirname "`pwd`")/vaultwarden_data/vaultwarden.log
 sed -i "s#logpath = .*#logpath = ${logpath}#g" /etc/fail2ban/jail.d/vaultwarden.conf
 
 systemctl reload fail2ban
