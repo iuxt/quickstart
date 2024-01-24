@@ -1,3 +1,4 @@
 aria2-config/
-aria2-downloads/
+downloads/
 data/
+conf.ini
