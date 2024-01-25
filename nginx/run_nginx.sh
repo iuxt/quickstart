@@ -13,6 +13,7 @@ docker run --name nginx \
   -v "$(pwd)"/stream.d:/etc/nginx/stream.d \
   -v "$(pwd)"/ssl:/etc/nginx/ssl \
   -v "$(pwd)"/src:/src \
+  --mount type=bind,source=/etc/localtime,target=/etc/localtime,readonly \
   -p "${HTTP_PORT}":80 \
   -p "${HTTPS_PORT}":443 \
   -p 8000-8010:8000-8010 \
