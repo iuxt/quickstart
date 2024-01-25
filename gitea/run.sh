@@ -11,7 +11,6 @@ docker run -d \
     -e USER_UID=$(id -u iuxt) \
     -e USER_GID=$(id -g iuxt) \
     --env-file=.env \
-    --mount type=bind,source=/etc/timezone,target=/etc/timezone,readonly \
     --mount type=bind,source=/etc/localtime,target=/etc/localtime,readonly \
     -v $PWD/gitea-data:/data \
     --restart=always \
