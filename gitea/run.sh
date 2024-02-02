@@ -4,6 +4,7 @@
 
 useradd -m iuxt
 # https://docs.gitea.com/installation/install-with-docker
+#    -m 512M --memory-swap=768M \
 
 docker run -d \
     --name gitea \
