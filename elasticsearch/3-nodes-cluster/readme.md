@@ -1,8 +1,8 @@
 ## 初始化密码
 
 ```bash
- docker exec elasticsearch1 bash -c "echo y | /usr/share/elasticsearch/bin/elasticsearch-setup-passwords auto"
- ```
+docker exec elasticsearch1 bash -c "echo y | /usr/share/elasticsearch/bin/elasticsearch-setup-passwords auto"
+```
 
 ## 重新设置密码
 
