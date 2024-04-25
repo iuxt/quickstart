@@ -8,10 +8,10 @@ docker run -d --name elasticsearch \
     -v "$(pwd)"/es-logs:/usr/share/elasticsearch/logs:rw \
     --privileged --network elasticsearch \
     -p 9200:9200 -p 9300:9300 \
-    elasticsearch:7.16.2
+    elasticsearch:7.17.14
 
 docker run -d --name kibana \
     --net elasticsearch \
     -p 5601:5601 \
     -v "$(pwd)"/kibana.yml:/usr/share/kibana/config/kibana.yml \
-    kibana:7.16.2
+    kibana:7.17.14
