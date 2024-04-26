@@ -15,7 +15,7 @@ docker run -d \
     --mount type=bind,source=/etc/localtime,target=/etc/localtime,readonly \
     -v $PWD/gitea-data:/data \
     --restart=always \
-    gitea/gitea:latest
+    gitea/gitea:1.21.11
 
 cp -f ./gitea-nginx.conf ../nginx/conf.d/gitea.conf
 cp -f ./gitea-nginx-stream.conf ../nginx/stream.d/gitea.conf
