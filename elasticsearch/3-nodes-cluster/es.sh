@@ -1,7 +1,19 @@
 #!/bin/bash
+
+# 设置Elasticsearch版本
+ELASTIC_VERSION=7.17.14
+
 sudo sysctl -w vm.max_map_count=262144
 
 docker network create --subnet=172.16.0.0/24 elasticsearch-br0
+
+
+# 生成证书
+docker run --rm -it -v $(pwd)/certs:/root elasticsearch:${ELASTIC_VERSION} bash -c \
+    'echo -e "\n\n" | /usr/share/elasticsearch/bin/elasticsearch-certutil ca -s && \
+    echo -e "\n\n\n" | /usr/share/elasticsearch/bin/elasticsearch-certutil cert -s --ca elastic-stack-ca.p12 && \
+    mv /usr/share/elasticsearch/*.p12 /root/'
+
 
 docker run -d --name elasticsearch1 \
     --ulimit memlock=-1:-1 \
@@ -22,11 +34,11 @@ docker run -d --name elasticsearch1 \
     -e xpack.security.transport.ssl.truststore.path=/usr/share/elasticsearch/config/elastic-certificates.p12 \
     -v es-data1:/usr/share/elasticsearch/data:rw \
     -v es-logs1:/usr/share/elasticsearch/logs:rw \
-    --mount type=bind,source=$PWD/elastic-certificates.p12,target=/usr/share/elasticsearch/config/elastic-certificates.p12 \
+    --mount type=bind,source=$(pwd)/certs/elastic-certificates.p12,target=/usr/share/elasticsearch/config/elastic-certificates.p12 \
     --network elasticsearch-br0 \
     --ip 172.16.0.11 \
     -p 9201:9200 -p 9301:9300 \
-    elasticsearch:7.17.14
+    elasticsearch:${ELASTIC_VERSION}
 
 docker run -d --name elasticsearch2 \
     --ulimit memlock=-1:-1 \
@@ -47,11 +59,11 @@ docker run -d --name elasticsearch2 \
     -e xpack.security.transport.ssl.truststore.path=/usr/share/elasticsearch/config/elastic-certificates.p12 \
     -v es-data2:/usr/share/elasticsearch/data:rw \
     -v es-logs2:/usr/share/elasticsearch/logs:rw \
-    --mount type=bind,source=$PWD/elastic-certificates.p12,target=/usr/share/elasticsearch/config/elastic-certificates.p12 \
+    --mount type=bind,source=$(pwd)/certs/elastic-certificates.p12,target=/usr/share/elasticsearch/config/elastic-certificates.p12 \
     --network elasticsearch-br0 \
     --ip 172.16.0.12 \
     -p 9202:9200 -p 9302:9300 \
-    elasticsearch:7.17.14
+    elasticsearch:${ELASTIC_VERSION}
 
 docker run -d --name elasticsearch3 \
     --ulimit memlock=-1:-1 \
@@ -72,14 +84,14 @@ docker run -d --name elasticsearch3 \
     -e xpack.security.transport.ssl.truststore.path=/usr/share/elasticsearch/config/elastic-certificates.p12 \
     -v es-data3:/usr/share/elasticsearch/data:rw \
     -v es-logs3:/usr/share/elasticsearch/logs:rw \
-    --mount type=bind,source=$PWD/elastic-certificates.p12,target=/usr/share/elasticsearch/config/elastic-certificates.p12 \
+    --mount type=bind,source=$(pwd)/certs/elastic-certificates.p12,target=/usr/share/elasticsearch/config/elastic-certificates.p12 \
     --network elasticsearch-br0 \
     --ip 172.16.0.13 \
     -p 9203:9200 -p 9303:9300 \
-    elasticsearch:7.17.14
+    elasticsearch:${ELASTIC_VERSION}
 
 docker run -d --name kibana \
     --net elasticsearch-br0 \
     -p 5601:5601 \
     -v "$(pwd)"/kibana.yml:/usr/share/kibana/config/kibana.yml \
-    kibana:7.17.14
+    kibana:${ELASTIC_VERSION}

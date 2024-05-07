@@ -1,3 +1,12 @@
+## 证书生成
+
+```bash
+docker run --rm -it -v $(pwd)/certs:/root elasticsearch:7.17.14 bash -c \
+    'echo -e "\n\n" | /usr/share/elasticsearch/bin/elasticsearch-certutil ca -s && \
+    echo -e "\n\n\n" | /usr/share/elasticsearch/bin/elasticsearch-certutil cert -s --ca elastic-stack-ca.p12 && \
+    mv /usr/share/elasticsearch/*.p12 /root/'
+```
+
 ## 初始化密码
 
 ```bash
@@ -13,9 +22,3 @@ curl -XPUT -u elastic:belu3EfkGVLiU2vEcRno http://localhost:9200/_xpack/security
 }'
 ```
 
-## 证书生成
-
-```bash
-./bin/elasticsearch-certutil ca
-./bin/elasticsearch-certutil cert --ca elastic-stack-ca.p12
-```

@@ -1,3 +1,4 @@
 logs*/
 data*/
 *.p12
+certs/
