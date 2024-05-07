@@ -4,30 +4,75 @@ sudo sysctl -w vm.max_map_count=262144
 docker network create --subnet=172.16.0.0/24 elasticsearch-br0
 
 docker run -d --name elasticsearch1 \
+    --ulimit memlock=-1:-1 \
     -e "ES_JAVA_OPTS=-Xms512m -Xmx512m" \
-    -v "$(pwd)"/elasticsearch1.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro \
+    -e node.name=elasticsearch1 \
+    -e cluster.name=es-cluster \
+    -e discovery.seed_hosts=elasticsearch2,elasticsearch3 \
+    -e cluster.initial_master_nodes=elasticsearch1,elasticsearch2,elasticsearch3 \
+    -e bootstrap.memory_lock=true \
+    -e xpack.security.enabled=true \
+    -e http.cors.enabled=true \
+    -e http.cors.allow-origin="*" \
+    -e http.cors.allow-headers=Authorization \
+    -e xpack.security.enabled=true \
+    -e xpack.security.transport.ssl.enabled=true \
+    -e xpack.security.transport.ssl.verification_mode=certificate \
+    -e xpack.security.transport.ssl.keystore.path=/usr/share/elasticsearch/config/elastic-certificates.p12 \
+    -e xpack.security.transport.ssl.truststore.path=/usr/share/elasticsearch/config/elastic-certificates.p12 \
     -v es-data1:/usr/share/elasticsearch/data:rw \
     -v es-logs1:/usr/share/elasticsearch/logs:rw \
+    --mount type=bind,source=$PWD/elastic-certificates.p12,target=/usr/share/elasticsearch/config/elastic-certificates.p12 \
     --network elasticsearch-br0 \
     --ip 172.16.0.11 \
     -p 9201:9200 -p 9301:9300 \
     elasticsearch:7.17.14
 
 docker run -d --name elasticsearch2 \
+    --ulimit memlock=-1:-1 \
     -e "ES_JAVA_OPTS=-Xms512m -Xmx512m" \
-    -v "$(pwd)"/elasticsearch2.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro \
+    -e node.name=elasticsearch2 \
+    -e cluster.name=es-cluster \
+    -e discovery.seed_hosts=elasticsearch1,elasticsearch3 \
+    -e cluster.initial_master_nodes=elasticsearch1,elasticsearch2,elasticsearch3 \
+    -e bootstrap.memory_lock=true \
+    -e xpack.security.enabled=true \
+    -e http.cors.enabled=true \
+    -e http.cors.allow-origin="*" \
+    -e http.cors.allow-headers=Authorization \
+    -e xpack.security.enabled=true \
+    -e xpack.security.transport.ssl.enabled=true \
+    -e xpack.security.transport.ssl.verification_mode=certificate \
+    -e xpack.security.transport.ssl.keystore.path=/usr/share/elasticsearch/config/elastic-certificates.p12 \
+    -e xpack.security.transport.ssl.truststore.path=/usr/share/elasticsearch/config/elastic-certificates.p12 \
     -v es-data2:/usr/share/elasticsearch/data:rw \
     -v es-logs2:/usr/share/elasticsearch/logs:rw \
+    --mount type=bind,source=$PWD/elastic-certificates.p12,target=/usr/share/elasticsearch/config/elastic-certificates.p12 \
     --network elasticsearch-br0 \
     --ip 172.16.0.12 \
     -p 9202:9200 -p 9302:9300 \
     elasticsearch:7.17.14
 
 docker run -d --name elasticsearch3 \
+    --ulimit memlock=-1:-1 \
     -e "ES_JAVA_OPTS=-Xms512m -Xmx512m" \
-    -v "$(pwd)"/elasticsearch3.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro \
+    -e node.name=elasticsearch3 \
+    -e cluster.name=es-cluster \
+    -e discovery.seed_hosts=elasticsearch1,elasticsearch2 \
+    -e cluster.initial_master_nodes=elasticsearch1,elasticsearch2,elasticsearch3 \
+    -e bootstrap.memory_lock=true \
+    -e xpack.security.enabled=true \
+    -e http.cors.enabled=true \
+    -e http.cors.allow-origin="*" \
+    -e http.cors.allow-headers=Authorization \
+    -e xpack.security.enabled=true \
+    -e xpack.security.transport.ssl.enabled=true \
+    -e xpack.security.transport.ssl.verification_mode=certificate \
+    -e xpack.security.transport.ssl.keystore.path=/usr/share/elasticsearch/config/elastic-certificates.p12 \
+    -e xpack.security.transport.ssl.truststore.path=/usr/share/elasticsearch/config/elastic-certificates.p12 \
     -v es-data3:/usr/share/elasticsearch/data:rw \
     -v es-logs3:/usr/share/elasticsearch/logs:rw \
+    --mount type=bind,source=$PWD/elastic-certificates.p12,target=/usr/share/elasticsearch/config/elastic-certificates.p12 \
     --network elasticsearch-br0 \
     --ip 172.16.0.13 \
     -p 9203:9200 -p 9303:9300 \
