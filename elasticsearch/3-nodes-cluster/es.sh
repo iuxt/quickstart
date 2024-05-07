@@ -10,8 +10,8 @@ docker network create --subnet=172.16.0.0/24 elasticsearch-br0
 
 # 生成证书
 docker run --rm -it -v $(pwd)/certs:/root elasticsearch:${ELASTIC_VERSION} bash -c \
-    'echo -e "\n\n" | /usr/share/elasticsearch/bin/elasticsearch-certutil ca -s && \
-    echo -e "\n\n\n" | /usr/share/elasticsearch/bin/elasticsearch-certutil cert -s --ca elastic-stack-ca.p12 && \
+    'echo -e "\n\n" | /usr/share/elasticsearch/bin/elasticsearch-certutil ca -s -days 36500 && \
+    echo -e "\n\n\n" | /usr/share/elasticsearch/bin/elasticsearch-certutil cert -s -days 36500 --ca elastic-stack-ca.p12 && \
     mv /usr/share/elasticsearch/*.p12 /root/'
 
 
