@@ -90,6 +90,37 @@ docker run -d --name elasticsearch3 \
     -p 9203:9200 -p 9303:9300 \
     elasticsearch:${ELASTIC_VERSION}
 
+
+# 等待服务启动正常
+sleep 10
+while true
+do
+  docker exec elasticsearch1 bash -c "curl -s -o /dev/null http://localhost:9200"
+  if [ $? == 0 ];then
+    break
+  fi
+  echo "waiting..."
+  sleep 1
+done
+
+
+# 设置密码
+docker exec -it elasticsearch1 bash -c 'echo -e "y
+eJqlrXh8bNhjHtKEJY6Z
+eJqlrXh8bNhjHtKEJY6Z
+eJqlrXh8bNhjHtKEJY6Z
+eJqlrXh8bNhjHtKEJY6Z
+eJqlrXh8bNhjHtKEJY6Z
+eJqlrXh8bNhjHtKEJY6Z
+eJqlrXh8bNhjHtKEJY6Z
+eJqlrXh8bNhjHtKEJY6Z
+eJqlrXh8bNhjHtKEJY6Z
+eJqlrXh8bNhjHtKEJY6Z
+eJqlrXh8bNhjHtKEJY6Z
+eJqlrXh8bNhjHtKEJY6Z" | /usr/share/elasticsearch/bin/elasticsearch-setup-passwords interactive'
+
+
+# 启动kibana
 docker run -d --name kibana \
     --net elasticsearch-br0 \
     -p 5601:5601 \

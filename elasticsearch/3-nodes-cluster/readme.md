@@ -20,3 +20,9 @@ curl -XPUT -u elastic:belu3EfkGVLiU2vEcRno http://localhost:9200/_xpack/security
 }'
 ```
 
+## 清理集群
+
+```bash
+docker rm -f kibana elasticsearch1 elasticsearch2 elasticsearch3
+docker volume rm es-logs3  es-logs2  es-logs1  es-data3  es-data2  es-data1
+```
