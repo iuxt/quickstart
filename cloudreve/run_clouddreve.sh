@@ -6,8 +6,6 @@ set -euo pipefail
 docker run -d \
     --name cloudreve \
     --network iuxt \
-    -e PUID=$UID \
-    -e PGID=$(id -g) \
     --mount type=bind,source=$PWD/conf.ini,target=/cloudreve/conf.ini \
     -v $PWD/data/uploads:/cloudreve/uploads \
     -v $PWD/data/avatar:/cloudreve/avatar \
