@@ -10,3 +10,8 @@ docker run --name frps \
   --log-opt max-size=1G \
   -v /etc/localtime:/etc/localtime -v /etc/timezone:/etc/timezone \
   -d snowdreamtech/frps:0.57.0
+
+
+
+cd fail2ban && ./set_fail2ban.sh
+
