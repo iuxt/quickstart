@@ -20,7 +20,8 @@ logpath=/var/lib/docker/containers/${container_id}/${container_id}-json.log
 sed -i "s#logpath = .*#logpath = ${logpath}#g" /etc/fail2ban/jail.d/nginx-stream-cc.conf
 
 systemctl enable fail2ban
-systemctl restart fail2ban
+systemctl reload fail2ban
 
 fail2ban-client status nginx-http-cc
 fail2ban-client status nginx-stream-cc
+
