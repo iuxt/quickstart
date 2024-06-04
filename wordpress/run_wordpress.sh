@@ -19,4 +19,5 @@ docker run -d --name wordpress \
   wordpress:${WORDPRESS_VERSION}
 
 cp -f ./wordpress_nginx.conf ../nginx/conf.d/wordpress.conf
+../nginx/reload_nginx.sh
 
