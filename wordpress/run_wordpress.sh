@@ -16,7 +16,7 @@ docker run -d --name wordpress \
   --env-file=.env \
   --network iuxt \
   --restart always \
-  wordpress:${WORDPRESS_VERSION}
+  wordpress:"${WORDPRESS_VERSION}"
 
 cp -f ./wordpress_nginx.conf ../nginx/conf.d/wordpress.conf
 ../nginx/reload_nginx.sh
