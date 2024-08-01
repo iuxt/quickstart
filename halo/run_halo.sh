@@ -10,3 +10,4 @@ docker run -it -d --name halo \
   halohub/halo:1.6.1
 
 cp -f ./halo-nginx.conf ../nginx/conf.d/halo.conf
+../nginx/reload_nginx.sh
