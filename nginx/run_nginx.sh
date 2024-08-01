@@ -3,7 +3,7 @@ set -euo pipefail
 
 ../public/docker-network.sh
 
-
+docker rm -f nginx
 docker run --name nginx \
   -v "$(pwd)"/www:/usr/share/nginx/html:ro \
   -v "$(pwd)"/nginx.conf:/etc/nginx/nginx.conf \
@@ -23,5 +23,5 @@ docker run --name nginx \
   -d nginx:1.27.0
 
 
-cd fail2ban && ./set_fail2ban.sh
+cd fail2ban && sudo ./set_fail2ban.sh
 
