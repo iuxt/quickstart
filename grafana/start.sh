@@ -6,8 +6,9 @@ docker run -d --name=grafana \
     --restart always \
     --user "$(id -u)" \
     --volume "$PWD/data:/var/lib/grafana" \
-    -e "GF_SERVER_ROOT_URL=http://my.grafana.server/" \
+    -e "GF_SERVER_ROOT_URL=https://grafana.babudiu.com/" \
     -e "GF_INSTALL_PLUGINS=grafana-clock-panel" \
+    --add-host=host.docker.internal:host-gateway \
     grafana/grafana
 
 
