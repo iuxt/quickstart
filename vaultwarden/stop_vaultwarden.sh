@@ -3,7 +3,7 @@
 docker rm -f vaultwarden
 
 # 生效nginx规则
-rm -f ../nginx/conf.d/vaultwarden.conf
+rm -f ../nginx/conf.d/"$(basename "$(pwd)")".conf
 ../nginx/reload_nginx.sh
 
 

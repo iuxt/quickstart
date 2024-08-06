@@ -1,9 +1,7 @@
 #!/bin/bash
-set -euo pipefail
 
-docker rm -f wordpress
+docker rm -f gitlab-ce
 
 rm -f ../nginx/conf.d/"$(basename "$(pwd)")".conf
 
 ../nginx/reload_nginx.sh
-
