@@ -18,6 +18,4 @@ docker run -d --name wordpress \
   --restart always \
   wordpress:"${WORDPRESS_VERSION}"
 
-cp -f ./wordpress_nginx.conf ../nginx/conf.d/wordpress.conf
-../nginx/reload_nginx.sh
-
+../public/add_config_to_nginx.sh
