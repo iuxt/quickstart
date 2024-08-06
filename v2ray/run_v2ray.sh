@@ -9,5 +9,4 @@ docker run -d --name v2ray \
   --mount type=bind,source="$(pwd)"/config.json,target=/v2ray/config.json \
   iuxt/v2ray:v5.2.0
 
-cp -f ./v2ray-nginx.conf ../nginx/conf.d/v2ray.conf
-../nginx/reload_nginx.sh
+../public/add_config_to_nginx.sh

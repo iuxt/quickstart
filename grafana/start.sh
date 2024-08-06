@@ -12,5 +12,4 @@ docker run -d --name=grafana \
     grafana/grafana
 
 
-cp -f ./grafana-nginx.conf ../nginx/conf.d/grafana.conf
-../nginx/reload_nginx.sh
+../public/add_config_to_nginx.sh

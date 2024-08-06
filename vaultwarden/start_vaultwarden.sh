@@ -11,8 +11,7 @@ docker run -d \
     vaultwarden/server:latest
 
 # 生效nginx规则
-/bin/cp nginx/vaultwarden.conf ../nginx/conf.d/
-../nginx/reload_nginx.sh
+../public/add_config_to_nginx.sh
 
 
 # fail2ban规则

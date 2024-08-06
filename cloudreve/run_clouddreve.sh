@@ -13,4 +13,4 @@ docker run -d \
     --restart=always \
     cloudreve/cloudreve:latest
 
-cp -f ./cloudreve-nginx.conf ../nginx/conf.d/cloudreve.conf
+../public/add_config_to_nginx.sh
