@@ -5,6 +5,8 @@
 # https://docs.gitea.com/installation/install-with-docker
 #    -m 512M --memory-swap=768M \
 
+source .env
+
 docker run -d \
     --name gitea \
     --network iuxt \
@@ -14,7 +16,7 @@ docker run -d \
     --mount type=bind,source=/etc/localtime,target=/etc/localtime,readonly \
     -v "$PWD"/gitea-data:/data \
     --restart=always \
-    gitea/gitea:1.22.0
+    gitea/gitea:${GITEA_VERSION}
 
 cp -f ./gitea-nginx-stream.conf ../nginx/stream.d/gitea.conf
 ../public/add_config_to_nginx.sh
