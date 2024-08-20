@@ -3,6 +3,8 @@ set -euo pipefail
 
 ../public/docker-network.sh
 
+docker rm -f cloudreve
+
 docker run -d \
     --name cloudreve \
     --network iuxt \
