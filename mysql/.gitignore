@@ -1,4 +1,4 @@
 mysql_data/
-mysql_temp/
+mysql-files/
 .env
 
