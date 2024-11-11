@@ -5,16 +5,10 @@ set -euo pipefail
 
 docker rm -f cloudreve
 
-mkdir -vp data/{uploads,avatar} \
-&& touch data/conf.ini \
-&& touch data/cloudreve.db
-
-
 docker run -d \
     --name cloudreve \
     --network iuxt \
-    --mount type=bind,source=./data/conf.ini,target=/cloudreve/conf.ini \
-    --mount type=bind,source=./data/cloudreve.db,target=/cloudreve/cloudreve.db \
+    --mount type=bind,source=$PWD/conf.ini,target=/cloudreve/conf.ini \
     -v $PWD/data/uploads:/cloudreve/uploads \
     -v $PWD/data/avatar:/cloudreve/avatar \
     -v $PWD/downloads:/downloads \
