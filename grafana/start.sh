@@ -1,17 +1,15 @@
 #!/bin/bash
-cd $(dirname $0)
+cd "$(dirname $0)" || exit
 
-../public/docker-network.sh
-
+docker rm -f grafana
+mkdir data
+sudo chown -R 472:472 data
 docker run -d --name=grafana \
-    --network iuxt \
     --restart always \
-    --user "$(id -u)" \
-    --volume "$PWD/data:/var/lib/grafana" \
-    -e "GF_SERVER_ROOT_URL=https://grafana.babudiu.com/" \
-    -e "GF_INSTALL_PLUGINS=grafana-clock-panel" \
+    --user 472 \
+    -p 8000:3000 \
+    --volume "./data:/var/lib/grafana" \
     --add-host=host.docker.internal:host-gateway \
     grafana/grafana
 
-
-../public/add_config_to_nginx.sh
+docker logs -f grafana
